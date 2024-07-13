@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+export default function App() {
+  const [value, setValue] = useState(0);
+  const [error, setError] = useState("");
+
+  const increment = () => {
+    setValue(value + 1);
+    setError("");
+  };
+
+  const decrement = () => {
+    if (value > 0) {
+      setValue(value - 1);
+      setError("");
+    } else {
+      setError("Value cannot go below 0");
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>{value}</div>
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+      {error && <div style={{ color: "red" }}>{error}</div>}
+    </>
   );
 }
-
-export default App;
